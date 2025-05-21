@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusBuddy</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 32px;
+        background-color: #1e1e1e;
+        border-bottom: 1px solid #1e1e1e;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        animation: fadeDown 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .navbar .logo {
+        font-size: 1.7em;
+        font-weight: bold;
+        color: #ffffff;
+        text-decoration: none;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+      }
+      .navbar .nav-links {
+        display: flex;
+        gap: 28px;
+      }
+      .navbar .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.08em;
+        font-weight: 500;
+        transition: color 0.3s;
+        letter-spacing: 0.5px;
+      }
+      .navbar .nav-links a:hover {
+        color: #00aaff;
+      }
+      .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        opacity: 0;
+        animation: fadeInContainer 0.8s ease-in forwards;
+      }
+      @keyframes fadeInContainer {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero-section {
+        width: 90%;
+        max-width: 1100px;
+        margin: 40px auto 0 auto;
+        background: linear-gradient(120deg, #23243a 70%, #1e1e1e 100%);
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+        padding: 48px 32px 32px 32px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 40px;
+        animation: heroFade 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes heroFade {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero-content {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .hero-content h1 {
+        font-size: 2.7em;
+        color: #00aaff;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+        letter-spacing: 1px;
+        animation: fadeInText 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .hero-content p {
+        font-size: 1.18em;
+        color: #e0e6ed;
+        margin: 0 0 10px 0;
+        line-height: 1.7;
+        animation: fadeInText 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeInText {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .hero-actions {
+        margin-top: 18px;
+        display: flex;
+        gap: 18px;
+      }
+      .chatbot-link,
+      .learn-link {
+        display: inline-block;
+        background-color: #00aaff;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 28px;
+        border-radius: 7px;
+        font-size: 1.08em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 170, 255, 0.08);
+      }
+      .chatbot-link:hover,
+      .learn-link:hover {
+        background-color: #0088cc;
+        box-shadow: 0 4px 16px rgba(0, 170, 255, 0.18);
+      }
+      .hero-image {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 180px;
+        animation: fadeInImg 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeInImg {
+        from {
+          opacity: 0;
+          transform: scale(0.92);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .hero-image img {
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #00aaff 60%, #23243a 100%);
+        box-shadow: 0 4px 24px rgba(0, 170, 255, 0.12);
+        object-fit: cover;
+        border: 4px solid #23243a;
+      }
+      .content {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        padding: 20px;
+        width: 90%;
+        max-width: 1100px;
+        margin: 0 auto;
+        animation: fadeInContent 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeInContent {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .content .main-text {
+        flex: 3;
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        text-align: center;
+      }
+      .content .aside-text {
+        flex: 1;
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-weight: 600;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .aside-text h2 {
+        color: #fff;
+        font-weight: 700;
+        margin-bottom: 16px;
+        text-align: center;
+      }
+      .aside-text ul {
+        padding-left: 0;
+        margin: 0;
+        list-style: none;
+        text-align: center;
+      }
+      .aside-text ul li {
+        margin-bottom: 12px;
+      }
+      .aside-text ul li a {
+        color: #fff;
+        font-size: 1em;
+        font-family: Arial, sans-serif;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      .aside-text ul li a:hover {
+        color: #fafafa;
+      }
+      .info-section {
+        width: 80%;
+        margin: 20px auto 0 auto;
+        background-color: #1e1e1e;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        animation: fadeInContent 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .info-section h2 {
+        color: #00aaff;
+        margin-bottom: 10px;
+      }
+      .info-section p {
+        color: #e0e6ed;
+        line-height: 1.6;
+      }
+      .info-section .advantages p {
+        margin: 10px 0;
+        color: #e0e6ed;
+        line-height: 1.6;
+      }
+      .features-section {
+        width: 80%;
+        margin: 32px auto 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 28px;
+        justify-content: center;
+        animation: fadeInContent 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .feature-card {
+        background: #23243a;
+        border-radius: 10px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+        padding: 28px 22px;
+        min-width: 220px;
+        max-width: 320px;
+        flex: 1 1 220px;
+        color: #e0e6ed;
+        font-size: 1.08em;
+        text-align: left;
+        transition: transform 0.3s, box-shadow 0.3s;
+        opacity: 0;
+        animation: fadeInFeature 1.2s forwards;
+        animation-delay: 0.2s;
+      }
+      .feature-card:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+      .feature-card:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+      .feature-card:nth-child(4) {
+        animation-delay: 0.8s;
+      }
+      .feature-card:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 6px 24px rgba(0, 170, 255, 0.13);
+      }
+      @keyframes fadeInFeature {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      footer {
+        text-align: center;
+        padding: 10px 0;
+        background-color: #1e1e1e;
+        border-top: 1px solid #333;
+        color: #aaaaaa;
+        font-size: 0.9em;
+        margin-top: auto;
+      }
+      @media (max-width: 900px) {
+        .hero-section,
+        .content,
+        .info-section,
+        .features-section {
+          width: 98%;
+          padding: 10px;
+        }
+        .hero-section {
+          flex-direction: column;
+          gap: 18px;
+          padding: 32px 10px 18px 10px;
+        }
+        .hero-image img {
+          width: 120px;
+          height: 120px;
+        }
+      }
+      @media (max-width: 700px) {
+        .content {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .features-section {
+          flex-direction: column;
+          gap: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a href="#" class="logo">
+        <i class="fa-solid fa-robot" style="margin-right: 3px"></i>CampusBuddy
+      </a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <div class="hero-content">
+        <h1>Welcome to CampusBuddy</h1>
+        <p>
+          Your smart digital companion for campus life. Get instant answers,
+          manage your academic journey, and stay updated with everything
+          happening on campus—all in one place.
+        </p>
+        <div class="hero-actions">
+          <a href="/ui" class="chatbot-link"
+            ><i class="fa-solid fa-comments" style="margin-right: 7px"></i>Try
+            Chatbot</a
+          >
+          <a href="/about" class="learn-link">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png"
+          alt="CampusBuddy Bot"
+        />
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+      <div class="content">
+        <div class="main-text">
+          <h2 style="color: #00aaff">Why CampusBuddy?</h2>
+          <p>
+            CampusBuddy is your one-stop solution for managing campus
+            activities, accessing resources, and staying connected with your
+            peers. Experience seamless communication, personalized
+            notifications, and AI-powered support tailored for your academic
+            needs.
+          </p>
+        </div>
+        <aside class="aside-text">
+          <h2>Quick Links</h2>
+          <ul>
+            <li>
+              <a href="/future_enhancements">Upcoming Features</a>
+            </li>
+            <li><a href="#resources">Resources</a></li>
+            <li><a href="/Support">Support</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <!-- Info Section -->
+      <div class="info-section">
+        <h2>About CampusBuddy Chatbot</h2>
+        <p>
+          The CampusBuddy chatbot is designed to assist students, faculty, and
+          staff with quick access to campus-related information. Whether you
+          need help finding resources, learning about upcoming events, or
+          getting support, the chatbot is here to help 24/7.
+        </p>
+        <p>
+          Powered by advanced AI technology, CampusBuddy ensures accurate and
+          personalized responses to your queries, making your campus experience
+          seamless and efficient.
+        </p>
+        <h3 style="color: #00aaff">
+          Why Choose an AI Chatbot Over Traditional Q&A?
+        </h3>
+        <p>
+          The CampusBuddy chatbot offers unmatched convenience with 24/7
+          availability, instant responses, and the ability to handle multiple
+          queries simultaneously. It ensures consistent and accurate answers,
+          reduces costs by minimizing the need for additional staff, and
+          provides personalized assistance tailored to user preferences.
+          Additionally, it collects valuable data insights to improve campus
+          services and is easily accessible from any device, making it a
+          reliable and efficient alternative to traditional in-person Q&A
+          sessions.
+        </p>
+      </div>
+
+      <!-- Features Section -->
+      <div class="features-section">
+        <div class="feature-card">
+          <i
+            class="fa-solid fa-bolt"
+            style="color: #00aaff; margin-right: 8px"
+          ></i>
+          <b>Instant Answers</b><br />
+          Get immediate responses to your academic and administrative queries,
+          anytime.
+        </div>
+        <div class="feature-card">
+          <i
+            class="fa-solid fa-bell"
+            style="color: #00aaff; margin-right: 8px"
+          ></i>
+          <b>Personalized Notifications</b><br />
+          Stay updated with reminders for deadlines, events, and important
+          announcements.
+        </div>
+        <div class="feature-card">
+          <i
+            class="fa-solid fa-language"
+            style="color: #00aaff; margin-right: 8px"
+          ></i>
+          <b>Multilingual Support</b><br />
+          Interact in your preferred language for a comfortable and inclusive
+          experience.
+        </div>
+        <div class="feature-card">
+          <i
+            class="fa-solid fa-shield-alt"
+            style="color: #00aaff; margin-right: 8px"
+          ></i>
+          <b>Secure & Private</b><br />
+          Your data is protected with robust security and privacy measures.
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2025 CampusBuddy. All rights reserved. | Registration No:
+        U19PD22S0027.
+      </p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Support | CampusBuddy</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        color: #ffffff;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 32px;
+        background-color: #1e1e1e;
+        border-bottom: 1px solid #1e1e1e;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        animation: fadeDown 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .navbar .logo {
+        font-size: 1.7em;
+        font-weight: bold;
+        color: #ffffff;
+        text-decoration: none;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+      }
+      .navbar .nav-links {
+        display: flex;
+        gap: 28px;
+      }
+      .navbar .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.08em;
+        font-weight: 500;
+        transition: color 0.3s;
+        letter-spacing: 0.5px;
+      }
+      .navbar .nav-links a:hover {
+        color: #00aaff;
+      }
+      .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        opacity: 0;
+        animation: fadeInContainer 0.8s ease-in forwards;
+      }
+      @keyframes fadeInContainer {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .support-hero {
+        width: 90%;
+        max-width: 1100px;
+        margin: 40px auto 0 auto;
+        background: linear-gradient(120deg, #23243a 70%, #1e1e1e 100%);
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+        padding: 48px 32px 32px 32px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 40px;
+        animation: heroFade 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes heroFade {
+        from {
+          opacity: 0;
+          transform: translateY(40px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .support-hero-content {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+      .support-hero-content h1 {
+        font-size: 2.5em;
+        color: #00aaff;
+        margin: 0 0 10px 0;
+        font-weight: 700;
+        letter-spacing: 1px;
+        animation: fadeInText 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .support-hero-content p {
+        font-size: 1.15em;
+        color: #e0e6ed;
+        margin: 0 0 10px 0;
+        line-height: 1.7;
+        animation: fadeInText 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeInText {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .support-hero-image {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 160px;
+        animation: fadeInImg 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeInImg {
+        from {
+          opacity: 0;
+          transform: scale(0.92);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+      .support-hero-image img {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #00aaff 60%, #23243a 100%);
+        box-shadow: 0 4px 24px rgba(0, 170, 255, 0.12);
+        object-fit: cover;
+        border: 4px solid #23243a;
+      }
+      .support-section {
+        width: 80%;
+        margin: 32px auto 0 auto;
+        background-color: #1e1e1e;
+        padding: 32px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        animation: fadeInContent 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      @keyframes fadeInContent {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .support-section h2 {
+        color: #00aaff;
+        margin-bottom: 16px;
+      }
+      .support-section p {
+        color: #cccccc;
+        line-height: 1.7;
+        font-size: 1.08em;
+      }
+      .support-form-section {
+        width: 80%;
+        margin: 32px auto 0 auto;
+        background-color: #23243a;
+        padding: 32px;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.13);
+        animation: fadeInContent 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .support-form-section h3 {
+        color: #00aaff;
+        margin-bottom: 18px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.3em;
+      }
+      .support-form {
+        max-width: 500px;
+        margin: 0 auto;
+        text-align: left;
+      }
+      .support-form label {
+        color: #cccccc;
+        font-weight: 500;
+      }
+      .support-form input,
+      .support-form textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        border: none;
+        margin-bottom: 16px;
+        background: #181a22;
+        color: #fff;
+        font-size: 1em;
+      }
+      .support-form button {
+        background-color: #00aaff;
+        color: #fff;
+        padding: 10px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1.08em;
+        font-weight: 600;
+        transition: background 0.3s;
+      }
+      .support-form button:hover {
+        background-color: #0088cc;
+      }
+      footer {
+        text-align: center;
+        padding: 10px 0;
+        background-color: #1e1e1e;
+        border-top: 1px solid #333;
+        color: #aaaaaa;
+        font-size: 0.9em;
+        margin-top: auto;
+      }
+      @media (max-width: 900px) {
+        .support-hero,
+        .support-section,
+        .support-form-section {
+          width: 98%;
+          padding: 10px;
+        }
+        .support-hero {
+          flex-direction: column;
+          gap: 18px;
+          padding: 32px 10px 18px 10px;
+        }
+        .support-hero-image img {
+          width: 100px;
+          height: 100px;
+        }
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("issueForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert(
+              "Thank you for your feedback! Your issue or suggestion has been submitted."
+            );
+            this.reset();
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <a href="/" class="logo">
+        <i class="fa-solid fa-robot" style="margin-right: 3px"></i>CampusBuddy
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+      </div>
+    </nav>
+    <!-- Support Hero Section -->
+    <div class="support-hero">
+      <div class="support-hero-content">
+        <h1>Support</h1>
+        <p>
+          Need help or want to share your feedback? The CampusBuddy team is here
+          to assist you. Reach out for support, report issues, or suggest
+          improvements to make your experience even better.
+        </p>
+      </div>
+      <div class="support-hero-image">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/4712/4712035.png"
+          alt="CampusBuddy Bot"
+        />
+      </div>
+    </div>
+    <div class="container">
+      <div class="support-section">
+        <h2>How can we help you?</h2>
+        <p>
+          For common questions, check our FAQ or use the chatbot for instant
+          answers. For personalized support, fill out the form below and our
+          team will get back to you as soon as possible.
+        </p>
+      </div>
+      <div class="support-form-section">
+        <h3>Submit an Issue or Suggestion</h3>
+        <form id="issueForm" class="support-form">
+          <label for="name">Your Name:</label><br />
+          <input type="text" id="name" name="name" /><br />
+          <label for="email">Your Email:</label><br />
+          <input type="email" id="email" name="email" /><br />
+          <label for="issue">Describe the Issue or Suggestion:</label><br />
+          <textarea id="issue" name="issue" rows="5"></textarea><br />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    <footer>
+      <p>
+        &copy; 2025 CampusBuddy. All rights reserved. | Registration No:
+        U19PD22S0027.
+      </p>
+    </footer>
+  </body>
+</html>

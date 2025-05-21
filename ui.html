@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CampusBuddy - Chatbot</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        color: white;
+      }
+
+      .top-nav {
+        background: #1e1e1e;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 32px;
+        border-bottom: 1px solid #1e1e1e;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        animation: fadeDown 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      @keyframes fadeDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .top-nav .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.7em;
+        font-weight: bold;
+        color: #ffffff;
+        text-decoration: none;
+        letter-spacing: 1px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 28px;
+      }
+
+      .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.08em;
+        font-weight: 500;
+        transition: color 0.3s;
+        letter-spacing: 0.5px;
+        margin-left: 0;
+      }
+
+      .nav-links a:hover {
+        color: #00aaff;
+      }
+
+      .welcome {
+        text-align: center;
+        padding: 20px 30px 10px;
+      }
+
+      .welcome h1 {
+        color: #00bfff;
+        font-size: 24px;
+        margin: 0;
+      }
+
+      .welcome p {
+        font-size: 14px;
+        color: #ccc;
+        max-width: 600px;
+        margin: 10px auto 20px;
+      }
+
+      .chat-container {
+        width: 420px;
+        height: 700px;
+        background: linear-gradient(145deg, #1f1f1f, #121212);
+        border-radius: 20px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        box-sizing: border-box;
+        margin: 0 auto 30px;
+        opacity: 0;
+        animation: fadeInContainer 0.8s ease-in forwards;
+      }
+
+      @keyframes fadeInContainer {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .chat-header {
+        background: linear-gradient(to right, #0d47a1, #1976d2);
+        padding: 12px;
+        border-radius: 15px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        opacity: 0;
+        animation: fadeInHeader 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        animation-delay: 0.2s;
+      }
+
+      @keyframes fadeInHeader {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .chat-box {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+        background: rgba(24, 24, 24, 0.9);
+        border-radius: 15px;
+        margin-bottom: 10px;
+        opacity: 0;
+        animation: fadeInBox 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        animation-delay: 0.4s;
+      }
+
+      @keyframes fadeInBox {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        opacity: 0;
+        animation: fadeInInput 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        animation-delay: 0.6s;
+      }
+
+      @keyframes fadeInInput {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .input-row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        flex-wrap: nowrap;
+      }
+
+      #query {
+        flex: 1 1 0%;
+        min-width: 0;
+        padding: 10px 14px;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        font-size: 14px;
+        background: #2c2c2c;
+        color: white;
+      }
+
+      #language {
+        width: 100%;
+        padding: 8px 12px;
+        border-radius: 20px;
+        border: none;
+        background: #2c2c2c;
+        color: white;
+        font-size: 13px;
+      }
+
+      button {
+        width: 20px;
+        height: 24px;
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: linear-gradient(to right, #2196f3, #21cbf3);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        font-size: 1.25em;
+        cursor: pointer;
+        transition: background 0.3s ease, box-shadow 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 170, 255, 0.08);
+        margin-left: 0;
+      }
+
+      button:hover {
+        background-image: linear-gradient(to right, #1e88e5, #00bcd4);
+        box-shadow: 0 4px 16px rgba(0, 170, 255, 0.18);
+      }
+
+      #voiceBtn {
+        font-size: 1.3em;
+      }
+
+      #sendBtn i {
+        font-size: 1.1em;
+      }
+
+      .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        animation: fadeInContainer 0.8s ease-in forwards;
+      }
+
+      footer {
+        background: #1e1e1e;
+        color: #fff;
+        border-top: 1px solid #333;
+        text-align: center;
+        padding: 18px 0;
+        font-size: 0.95em;
+        margin-top: auto;
+      }
+    </style>
+    <script>
+      // Chat functionality for UI page
+      document.addEventListener("DOMContentLoaded", function () {
+        const voiceBtn = document.getElementById("voiceBtn");
+        const queryInput = document.getElementById("query");
+        const sendBtn = document.getElementById("sendBtn");
+        const chatBox = document.getElementById("chat-box");
+        const languageSelect = document.getElementById("language");
+
+        // Send message function
+        function sendQuery() {
+          const query = queryInput.value.trim();
+          const language = languageSelect.value;
+          if (!query) return;
+
+          // Display user's message
+          const userMsg = document.createElement("div");
+          userMsg.className = "message user-message";
+          userMsg.textContent = query;
+          chatBox.appendChild(userMsg);
+
+          // Special handling for greetings
+          if (["hi", "hello", "hey"].includes(query.toLowerCase())) {
+            const botMsg = document.createElement("div");
+            botMsg.className = "message bot-message";
+            botMsg.textContent = "Hello! How can I assist you today?";
+            chatBox.appendChild(botMsg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            queryInput.value = "";
+            return;
+          }
+
+          // Send to backend
+          fetch("/chat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ query, language }),
+          })
+            .then((res) => res.json())
+            .then((result) => {
+              const botMsg = document.createElement("div");
+              botMsg.className = "message bot-message";
+              botMsg.textContent = result.response
+                ? result.response
+                : "No response from bot.";
+              chatBox.appendChild(botMsg);
+              chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(() => {
+              const errorMsg = document.createElement("div");
+              errorMsg.className = "message bot-message";
+              errorMsg.textContent = "Bot: Error connecting to the server.";
+              chatBox.appendChild(errorMsg);
+            });
+
+          queryInput.value = "";
+          chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Send on button click
+        sendBtn.addEventListener("click", sendQuery);
+
+        // Send on Enter key
+        queryInput.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") {
+            sendQuery();
+          }
+        });
+
+        // Voice recognition
+        function getCurrentLanguage() {
+          // Map language code to browser locale if needed
+          const lang = languageSelect.value;
+          if (lang === "en") return "en-US";
+          if (lang === "hi") return "hi-IN";
+          if (lang === "kn") return "kn-IN";
+          if (lang === "ta") return "ta-IN";
+          if (lang === "te") return "te-IN";
+          return "en-US";
+        }
+
+        const SpeechRecognition =
+          window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+          if (voiceBtn) voiceBtn.disabled = true;
+        } else {
+          const recognition = new SpeechRecognition();
+          recognition.interimResults = false;
+          recognition.maxAlternatives = 1;
+
+          voiceBtn.addEventListener("click", () => {
+            recognition.lang = getCurrentLanguage();
+            recognition.start();
+          });
+
+          recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            queryInput.value = transcript;
+            // Optionally auto-send:
+            // sendQuery();
+          };
+
+          recognition.onerror = (event) => {
+            alert("Speech recognition error: " + event.error);
+          };
+
+          recognition.onstart = () => {
+            voiceBtn.textContent = "🎤 Listening...";
+            voiceBtn.disabled = true;
+          };
+
+          recognition.onend = () => {
+            voiceBtn.textContent = "🎤";
+            voiceBtn.disabled = false;
+          };
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="top-nav">
+      <a
+        href="/home.html"
+        class="logo"
+        style="
+          display: flex;
+          align-items: center;
+          text-decoration: none;
+          color: #fff;
+        "
+      >
+        <i
+          class="fa-solid fa-robot"
+          style="margin-right: 3px; font-size: 1em"
+        ></i>
+        CampusBuddy
+      </a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#about">About</a>
+        <a href="/#services">Services</a>
+      </div>
+    </div>
+
+    <!-- Welcome Message -->
+    <div class="welcome">
+      <h1>Welcome to the Chatbot</h1>
+      <p>
+        Use the chatbot to get instant answers to your queries, access
+        resources, and stay connected with your campus activities.
+      </p>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="chat-container">
+      <div class="chat-header">
+        <i
+          class="fa-solid fa-robot"
+          style="margin-right: 8px; font-size: 26px"
+        ></i>
+        <div>
+          <strong>Campus Buddy</strong><br />
+          <span class="bot-status">Online</span>
+        </div>
+      </div>
+      <div id="chat-box" class="chat-box"></div>
+      <div class="input-container">
+        <div class="input-row">
+          <input
+            type="text"
+            id="query"
+            placeholder="Type your message here"
+            autocomplete="off"
+          />
+          <button id="voiceBtn" title="Speak your message" type="button">
+            🎤
+          </button>
+          <button id="sendBtn" title="Send message" type="button">
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </div>
+        <select id="language">
+          <option value="en">English</option>
+          <option value="hi">Hindi</option>
+          <option value="kn">Kannada</option>
+          <option value="ta">Tamil</option>
+          <option value="te">Telugu</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        &copy; 2025 CampusBuddy. All rights reserved. | Registration No:
+        U19PD22S0027.
+      </p>
+    </footer>
+  </body>
+</html>
